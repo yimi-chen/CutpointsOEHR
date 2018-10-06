@@ -106,7 +106,7 @@ findcutpoints <- function(cox_pspline_fit,data,nquantile=100,exclude=0.05,eps=0.
 
   #get x and estimated y
   ptemp <- termplot(cox_pspline_fit, se=TRUE, plot=FALSE)
-  xterm  <- ptemp$x
+  xterm  <- ptemp[[1]]
   PI_fit <- xterm$y
 
   #Define the minimum y value as turning point of U shape , maximum y value as turning point of inverse U shape
