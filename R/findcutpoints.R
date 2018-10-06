@@ -169,7 +169,7 @@ findcutpoints <- function(cox_pspline_fit,data,nquantile=100,exclude=0.05,eps=0.
       datatemp$x_c <- relevel(factor(datatemp$x_c),ref='C2')
 
       #Cox model formula
-      if(is.na(confounders)){
+      if(sum(is.na(confounders))){
         f_cox <- Surv(t,d)~factor(x_c)
       }else{
         f_cox <- as.formula(paste('Surv(t,d)~factor(x_c)','+', paste(confounders, collapse=" + ")))
