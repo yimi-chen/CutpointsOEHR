@@ -120,6 +120,10 @@ findcutpoints <- function(cox_pspline_fit,data,nquantile=100,exclude=0.05,eps=0.
     }
   }
 
+  #when the turningpoint is extreme values
+  if(turningpoint_index==1|turningpoint_index==length(PI_fit)){
+    stop('the relationship is not U/inverse U-shape or check the "shape" parameter')
+  }
 
   #quantiles of y after excluding some extreme values
   ycut <- quantile(PI_fit, probs = seq((0+exclude), (1-exclude),1/nquantile))
@@ -132,7 +136,7 @@ findcutpoints <- function(cox_pspline_fit,data,nquantile=100,exclude=0.05,eps=0.
   for (i in 1:length(ycut)){
     y <- as.numeric(ycut[i])
     cut_spline[i,"Quantile"] <- names(ycut)[i]
-    L <- which.min((PI_fit[0:turningpoint_index]-y)^2)
+    L <- which.min((PI_fit[1:turningpoint_index]-y)^2)
     R <- which.min((PI_fit[turningpoint_index:length(PI_fit)]-y)^2) + turningpoint_index - 1
     #control that two cutpoints have approximate estimated y value
     if(abs(PI_fit[L]-PI_fit[R])>eps){
