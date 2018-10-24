@@ -175,9 +175,9 @@ findcutpoints <- function(cox_pspline_fit,data,nquantile=100,exclude=0.05,eps=0.
 
       #Cox model formula
       if(sum(is.na(confounders))){
-        f_cox <- Surv(t,d)~factor(x_c)
+        f_cox <- Surv(t,d)~x_c
       }else{
-        f_cox <- as.formula(paste('Surv(t,d)~factor(x_c)','+', paste(confounders, collapse=" + ")))
+        f_cox <- as.formula(paste('Surv(t,d)~x_c','+', paste(confounders, collapse=" + ")))
       }
 
       coxHR <- survival::coxph(f_cox ,method='breslow',data=datatemp)
