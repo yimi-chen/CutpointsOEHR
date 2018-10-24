@@ -134,6 +134,9 @@ findcutpoints <- function(cox_pspline_fit,data,nquantile=100,exclude=0.05,eps=0.
 
   # find all candidate pairs of cutpoints
   for (i in 1:length(ycut)){
+    
+    tryCatch(
+        {
     y <- as.numeric(ycut[i])
     cut_spline[i,"Quantile"] <- names(ycut)[i]
     L <- which.min((PI_fit[1:turningpoint_index]-y)^2)
@@ -184,6 +187,11 @@ findcutpoints <- function(cox_pspline_fit,data,nquantile=100,exclude=0.05,eps=0.
       cut_spline[i,"AIC"] <- as.numeric(extractAIC(coxHR)[2])
       cut_spline[i,'#medianrange'] <- sum(datatemp$x_c=='C2',na.rm = T)
     }
+          },
+          error=function(err){
+            print(err)
+          }) 
+          
   }
 
   #multiple pairs of optimal cutpoints: use the median value
