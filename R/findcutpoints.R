@@ -199,11 +199,11 @@ findcutpoints <- function(cox_pspline_fit,data,nquantile=100,exclude=0.05,eps=0.
   multi  <-  length(number)
   if (multi>1){
     if(multi%%2 ==0){
-      optimal <- c('Cutpoint_L'= (as.numeric(cut_spline[number[ceiling(median(multi))],"Lcutpoint"])+ as.numeric(cut_spline[number[floor(median(multi))],"Lcutpoint"]))/2,
-                   'Cutpoint_R'= (as.numeric(cut_spline[number[ceiling(median(multi))],"Rcutpoint"])+ as.numeric(cut_spline[number[floor(median(multi))],"Rcutpoint"]))/2)
+      optimal <- c('Cutpoint_L'= (as.numeric(cut_spline[number[ceiling(median(1:multi))],"Lcutpoint"])+ as.numeric(cut_spline[number[floor(median(1:multi))],"Lcutpoint"]))/2,
+                   'Cutpoint_R'= (as.numeric(cut_spline[number[ceiling(median(1:multi))],"Rcutpoint"])+ as.numeric(cut_spline[number[floor(median(1:multi))],"Rcutpoint"]))/2)
     } else {
-      optimal <- c('Cutpoint_L'= as.numeric(cut_spline[number[median(multi)],"Lcutpoint"]),
-                   'Cutpoint_R'= as.numeric(cut_spline[number[median(multi)],"Rcutpoint"]))
+      optimal <- c('Cutpoint_L'= as.numeric(cut_spline[number[median(1:multi)],"Lcutpoint"]),
+                   'Cutpoint_R'= as.numeric(cut_spline[number[median(1:multi)],"Rcutpoint"]))
     }
   }else{
     optimal <- c('Cutpoint_L'= as.numeric(cut_spline[number,"Lcutpoint"]),'Cutpoint_R'=as.numeric(cut_spline[number,"Rcutpoint"]))
